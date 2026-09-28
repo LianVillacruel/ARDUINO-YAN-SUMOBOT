@@ -1,4 +1,4 @@
-// Last Update: 09/22/2026
+// Last Update: 09/28/2026
 // *WITH AI ASSISTANCE
 
 /* SUMOBOT PIN CONFIGURATION
@@ -39,6 +39,15 @@ SCL - A5
 HC-06
 RXD - TX
 TXD - RX
+
+FEATURES:
+-RC Bluetooth control
+-Autonomous mode
+-OLED display
+-Motor testing
+-Adjustable motor speed
+-HC-06 Bluetooth module
+
 */
 
 // INCLUDED LIBRARIES
@@ -60,9 +69,10 @@ TXD - RX
 #define TRIG_RIGHT 12
 #define ECHO_RIGHT 13
 
+// ===== ATTACK DISTANCE CONFIGURATION ======
 #define MAX_DISTANCE 150
-#define ATTACK_DISTANCE 40
-#define SIDE_ATTACK_DISTANCE 50
+#define ATTACK_DISTANCE 20
+#define SIDE_ATTACK_DISTANCE 30
 
 
 // Motor driver
@@ -91,11 +101,11 @@ TXD - RX
 
 // ================= AUTO SPEED SETTINGS =================
 
-int autoAttackSpeed = 255; // Default Value
+int autoAttackSpeed = 255; // FULL SPEED Default Value
 int autoSearchSpeed = 140; // Default Value
 
 // =========== Bluetooth mode Motor Speed ============
-int btMotorSpeed = 0;
+int btMotorSpeed = 0; // Changeable in the app controller
 
 
 // ================= OLED =================
@@ -1939,7 +1949,7 @@ void autonomousMode() {
 
     stopMove();
 
-    moveBackward(autoAttackSpeed);
+    moveBackward(autoAttackSpeed); // FULL SPEED
 
     delay(300);
 
@@ -1953,21 +1963,21 @@ void autonomousMode() {
 
       if (right == LOW && left != LOW) {
 
-        turnLeft(autoAttackSpeed);
+        turnLeft(autoAttackSpeed); // FULL SPEED
 
         delay(220);
       }
 
       else if (left == LOW && right != LOW) {
 
-        turnRight(autoAttackSpeed);
+        turnRight(autoAttackSpeed); // FULL SPEED
 
         delay(220);
       }
 
       else {
 
-        turnLeft(autoAttackSpeed);
+        turnLeft(autoAttackSpeed); // FULL SPEED
 
         delay(220);
       }
@@ -1979,21 +1989,21 @@ void autonomousMode() {
 
       if (right == HIGH && left != HIGH) {
 
-        turnLeft(autoAttackSpeed);
+        turnLeft(autoAttackSpeed); // FULL SPEED
 
         delay(220);
       }
 
       else if (left == HIGH && right != HIGH) {
 
-        turnRight(autoAttackSpeed);
+        turnRight(autoAttackSpeed); // FULL SPEED
 
         delay(220);
       }
 
       else {
 
-        turnLeft(autoAttackSpeed);
+        turnLeft(autoAttackSpeed); // FULL SPEED
 
         delay(220);
       }
@@ -2032,7 +2042,7 @@ void autonomousMode() {
 
   if (frontDistance > 0 && frontDistance <= ATTACK_DISTANCE) {
 
-    pushForward(autoAttackSpeed);
+    pushForward(autoAttackSpeed); // FULL SPEED
 
     return;
   }
@@ -2042,7 +2052,7 @@ void autonomousMode() {
 
   else if (leftDistance > 0 && leftDistance <= SIDE_ATTACK_DISTANCE) {
 
-    turnLeft(autoAttackSpeed);
+    turnLeft(autoAttackSpeed); // FULL SPEED
 
     return;
   }
@@ -2052,7 +2062,7 @@ void autonomousMode() {
 
   else if (rightDistance > 0 && rightDistance <= SIDE_ATTACK_DISTANCE) {
 
-    turnRight(autoAttackSpeed);
+    turnRight(autoAttackSpeed); // FULL SPEED
 
     return;
   }
