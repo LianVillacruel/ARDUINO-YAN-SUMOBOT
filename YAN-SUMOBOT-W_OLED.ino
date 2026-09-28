@@ -101,11 +101,14 @@ FEATURES:
 
 // ================= AUTO SPEED SETTINGS =================
 
-int autoAttackSpeed = 255; // FULL SPEED Default Value
-int autoSearchSpeed = 140; // Default Value
+
+const int fullSpeed = 255;  // FULL SPEED CONSTANT
+
+int autoAttackSpeed = 255;  // FULL SPEED Default Value
+int autoSearchSpeed = 100;  // SEARCH SPEED Default Value
 
 // =========== Bluetooth mode Motor Speed ============
-int btMotorSpeed = 0; // Changeable in the app controller
+int btMotorSpeed = 0;  // Changeable in the app controller
 
 
 // ================= OLED =================
@@ -882,9 +885,11 @@ void showSpeedAdjustMenu() {
   display.print(F("SPEED: "));
 
   if (speedAdjustTarget == 0) {
-    display.println(autoAttackSpeed);
+    display.print(autoAttackSpeed);
+    display.println("/255");
   } else {
-    display.println(autoSearchSpeed);
+    display.print(autoSearchSpeed);
+    display.println("/255");
   }
 
 
@@ -956,8 +961,8 @@ void showAutoSpeedMenu() {
     display.print(F("  ATTACK: "));
   }
 
-  display.println(autoAttackSpeed);
-
+  display.print(autoAttackSpeed);
+  display.println("/255");
 
   // ================= SEARCH =================
 
@@ -971,7 +976,8 @@ void showAutoSpeedMenu() {
     display.print(F("  SEARCH: "));
   }
 
-  display.println(autoSearchSpeed);
+  display.print(autoSearchSpeed);
+  display.println("/255");
 
 
   // ================= BACK =================
@@ -1949,9 +1955,8 @@ void autonomousMode() {
 
     stopMove();
 
-    moveBackward(autoAttackSpeed); // FULL SPEED
-
-    delay(300);
+    moveBackward(fullSpeed);  // FULL SPEED
+    delay(180);
 
 
     bool left = digitalRead(IR_LEFT);
@@ -1963,21 +1968,21 @@ void autonomousMode() {
 
       if (right == LOW && left != LOW) {
 
-        turnLeft(autoAttackSpeed); // FULL SPEED
+        turnLeft(fullSpeed);  // FULL SPEED
 
         delay(220);
       }
 
       else if (left == LOW && right != LOW) {
 
-        turnRight(autoAttackSpeed); // FULL SPEED
+        turnRight(fullSpeed);  // FULL SPEED
 
         delay(220);
       }
 
       else {
 
-        turnLeft(autoAttackSpeed); // FULL SPEED
+        turnLeft(fullSpeed);  // FULL SPEED
 
         delay(220);
       }
@@ -1989,21 +1994,21 @@ void autonomousMode() {
 
       if (right == HIGH && left != HIGH) {
 
-        turnLeft(autoAttackSpeed); // FULL SPEED
+        turnLeft(fullSpeed);  // FULL SPEED
 
         delay(220);
       }
 
       else if (left == HIGH && right != HIGH) {
 
-        turnRight(autoAttackSpeed); // FULL SPEED
+        turnRight(fullSpeed);  // FULL SPEED
 
         delay(220);
       }
 
       else {
 
-        turnLeft(autoAttackSpeed); // FULL SPEED
+        turnLeft(fullSpeed);  // FULL SPEED
 
         delay(220);
       }
@@ -2042,7 +2047,7 @@ void autonomousMode() {
 
   if (frontDistance > 0 && frontDistance <= ATTACK_DISTANCE) {
 
-    pushForward(autoAttackSpeed); // FULL SPEED
+    pushForward(autoAttackSpeed);  // FULL SPEED
 
     return;
   }
@@ -2052,7 +2057,7 @@ void autonomousMode() {
 
   else if (leftDistance > 0 && leftDistance <= SIDE_ATTACK_DISTANCE) {
 
-    turnLeft(autoAttackSpeed); // FULL SPEED
+    turnLeft(autoAttackSpeed);  // FULL SPEED
 
     return;
   }
@@ -2062,7 +2067,7 @@ void autonomousMode() {
 
   else if (rightDistance > 0 && rightDistance <= SIDE_ATTACK_DISTANCE) {
 
-    turnRight(autoAttackSpeed); // FULL SPEED
+    turnRight(autoAttackSpeed);  // FULL SPEED
 
     return;
   }
